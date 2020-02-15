@@ -40,7 +40,9 @@ dbConnect(() => {
             username: "Arturo",
             password: bcrypt.hashSync("123", bcrypt.genSaltSync(bcryptSalt)),
             email: 'arturo@gmail.com',
-            cityOrigin: faker.address.city()
+            cityOrigin: faker.address.city(),
+            role: 'admin'
+            
         },
         {
             _id: idUser[1],
