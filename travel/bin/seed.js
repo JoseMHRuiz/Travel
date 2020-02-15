@@ -4,29 +4,8 @@ const randomInt = (min, max) => Math.floor(Math.random() * (max - min + 1) + min
 const User = require('../models/User')
 const Travel = require('../models/Travel')
 const City = require('../models/City')
-
-
 const bcrypt = require("bcrypt");
-
 const bcryptSalt = 10;
-
-
-
-
-
-
-// const fakeTravel = Array(20)
-//     .fill()
-//     .map(() => {
-//         return {
-//             relax: score[randomInt(0, score.length - 1)],
-//             cultural: score[randomInt(0, score.length - 1)],
-//             party: score[randomInt(0, score.length - 1)],
-//             budget: dolar[randomInt(0, dolar.length - 1)],
-//             name: faker.lorem.words(),
-//         }
-//     })
-
 
 function dbConnect(cb) {
     mongoose
@@ -43,7 +22,6 @@ function dbConnect(cb) {
         });
 }
 
-
 dbConnect(() => {
     let counter = 0
 
@@ -52,13 +30,11 @@ dbConnect(() => {
         .map(() => {
             return new mongoose.mongo.ObjectId()
         })
-
     const idUser = Array(2)
         .fill()
         .map(() => {
             return new mongoose.mongo.ObjectId()
         })
-
     let users = [{
             _id: idUser[0],
             username: "Arturo",
@@ -74,8 +50,6 @@ dbConnect(() => {
             cityOrigin: faker.address.city()
         }
     ]
-
-
     const fakeCity = Array(6)
         .fill()
         .map(() => {
@@ -99,7 +73,7 @@ dbConnect(() => {
             return User.create(users)
         })
         .then(() => {
-            console.log('succesfully added the city to te data')
+            console.log('succesfully added the User to te data')
         })
     City.deleteMany()
         .then(() => {
@@ -110,6 +84,62 @@ dbConnect(() => {
         })
     const dolar = ['💵', '💵💵', '💵💵💵']
     const score = [1, 2, 3, 4, 5]
+    const days = [2, 5, 7]
+    const duration = ['30min-1hour', '1-2 hours', '2-3 hours', '3 or more hours']
+    const fakeDays = Array(days[randomInt(0, days.length - 1)])
+        .fill()
+        .map(() => {
+            return {
+                breakfast: {
+                    place: faker.commerce.product(),
+                    address: faker.address.streetName(),
+                    position: {
+                        lat: faker.address.latitude(),
+                        lon: faker.address.longitude()
+                    },
+                    description: faker.lorem.sentence(),
+                },
+                morning: [{
+                    place: faker.commerce.product(),
+                    address: faker.address.streetName(),
+                    duration: duration[randomInt(0, duration.length - 1)],
+                    position: {
+                        lat: faker.address.latitude(),
+                        lon: faker.address.longitude()
+                    },
+                    description: faker.lorem.sentence()
+                }],
+                lunch: {
+                    place: faker.commerce.product(),
+                    address: faker.address.streetName(),
+                    position: {
+                        lat: faker.address.latitude(),
+                        lon: faker.address.longitude()
+                    },
+                    description: faker.lorem.sentence(),
+                },
+                afternoon: [{
+                    place: faker.commerce.product(),
+                    address: faker.address.streetName(),
+                    duration: duration[randomInt(0, duration.length - 1)],
+                    position: {
+                        lat: faker.address.latitude(),
+                        lon: faker.address.longitude()
+                    },
+                    description: faker.lorem.sentence()
+                }],
+                dinner: {
+                    place: faker.commerce.product(),
+                    address: faker.address.streetName(),
+                    position: {
+                        lat: faker.address.latitude(),
+                        lon: faker.address.longitude()
+                    },
+                    description: faker.lorem.sentence(),
+                }
+            }
+        })
+
     const fakeTravel = Array(20)
         .fill()
         .map(() => {
@@ -124,7 +154,8 @@ dbConnect(() => {
                 budget: dolar[randomInt(0, dolar.length - 1)],
                 name: faker.lorem.words(),
                 city: idCity[randomInt(0, idCity.length - 1)],
-                user: idUser[randomInt(0, idUser.length - 1)]
+                user: idUser[randomInt(0, idUser.length - 1)],
+                days: fakeDays
             }
         })
     Travel.deleteMany()
@@ -137,86 +168,3 @@ dbConnect(() => {
             process.exit(0)
         })
 })
-
-
-// User.collection.drop();
-// Travel.collection.drop();
-// City.collection.drop();
-// db connection
-// const dolar = ['💵', '💵💵', '💵💵💵']
-// const score = [1, 2, 3, 4, 5]
-
-// const travels = [{
-//     mode: [{
-//             relax: 2
-//         },
-//         {
-//             cultural: 1
-//         },
-//         {
-//             party: 5
-//         },
-//     ],
-//     budget: '💵',
-//     name: 'Ibiza botellón',
-//     city: {
-//         name: 'Ibiza',
-//         coutry: 'Spain',
-//         socket: 'Normal',
-//         currency: '€',
-//         language: 'Spanish',
-//         position: {
-//             lat: 40.1217837,
-//             lon: -8.2007301
-//         },
-//         description: 'La ciudad española de Ibiza es la capital de la isla Balear del mismo nombre, en el mar Mediterráneo.',
-//     }
-// }]
-
-// const createCities = travels.map(travel => {
-//     const newCity = new City(travel.city)
-//     return newCity.save()
-//         .then(city => {
-//             return city.name;
-//         })
-//         .catch(error => {
-//             throw new Error(`Impossible to add the city. ${error}`)
-//         })
-// })
-
-
-// let findCities = Promise.all(createCities)
-//     .then(cities => {
-//         return travels.map(travel => {
-//             return City.findOne({
-//                     name: travel.city.name,
-//                     lastName: travel.city.lastName
-//                 })
-//                 .then(city => {
-//                     if (!city) {
-//                         throw new Error(`unknown city ${travel.city.name} ${travel.city.lastName}`);
-//                     }
-//                     return Object.assign({}, travel, {
-//                         city: city._id
-//                     });
-//                 })
-//         });
-//     })
-//     .catch(error => {
-//         throw new Error(error)
-//     })
-
-// const saveTravels = findCities.then(findCities => {
-//     return Promise.all(findCities)
-//         .then(travels => {
-//             return travels.map(travel => {
-//                 const newTravel = new Travel(travel);
-//                 return newTravel.save();
-//             })
-//         })
-// }).then(savedTravels => {
-//     Promise.all(savedTravels)
-//         .then(travels => travels.forEach(travel => console.log(`created ${travel.title}`)))
-//         .then(() => mongoose.connection.close())
-//         .catch(err => console.log("Error while saving the travel: ", err))
-// })
