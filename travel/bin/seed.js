@@ -86,76 +86,81 @@ dbConnect(() => {
     const score = [1, 2, 3, 4, 5]
     const days = [2, 5, 7]
     const duration = ['30min-1hour', '1-2 hours', '2-3 hours', '3 or more hours']
-    const fakeDays = Array(days[randomInt(0, days.length - 1)])
-        .fill()
-        .map(() => {
-            return {
-                breakfast: {
-                    place: faker.commerce.product(),
-                    address: faker.address.streetName(),
-                    position: {
-                        lat: faker.address.latitude(),
-                        lon: faker.address.longitude()
+    
+    function fakeDays() {
+        return Array(days[randomInt(0, days.length - 1)])
+            .fill()
+            .map(() => {
+                return {
+                    breakfast: {
+                        place: faker.commerce.product(),
+                        address: faker.address.streetName(),
+                        position: {
+                            lat: faker.address.latitude(),
+                            lon: faker.address.longitude()
+                        },
+                        description: faker.lorem.sentence(),
                     },
-                    description: faker.lorem.sentence(),
-                },
-                morning: [{
-                    place: faker.commerce.product(),
-                    address: faker.address.streetName(),
-                    duration: duration[randomInt(0, duration.length - 1)],
-                    position: {
-                        lat: faker.address.latitude(),
-                        lon: faker.address.longitude()
+                    morning: [{
+                        place: faker.commerce.product(),
+                        address: faker.address.streetName(),
+                        duration: duration[randomInt(0, duration.length - 1)],
+                        position: {
+                            lat: faker.address.latitude(),
+                            lon: faker.address.longitude()
+                        },
+                        description: faker.lorem.sentence()
+                    }],
+                    lunch: {
+                        place: faker.commerce.product(),
+                        address: faker.address.streetName(),
+                        position: {
+                            lat: faker.address.latitude(),
+                            lon: faker.address.longitude()
+                        },
+                        description: faker.lorem.sentence(),
                     },
-                    description: faker.lorem.sentence()
-                }],
-                lunch: {
-                    place: faker.commerce.product(),
-                    address: faker.address.streetName(),
-                    position: {
-                        lat: faker.address.latitude(),
-                        lon: faker.address.longitude()
-                    },
-                    description: faker.lorem.sentence(),
-                },
-                afternoon: [{
-                    place: faker.commerce.product(),
-                    address: faker.address.streetName(),
-                    duration: duration[randomInt(0, duration.length - 1)],
-                    position: {
-                        lat: faker.address.latitude(),
-                        lon: faker.address.longitude()
-                    },
-                    description: faker.lorem.sentence()
-                }],
-                dinner: {
-                    place: faker.commerce.product(),
-                    address: faker.address.streetName(),
-                    position: {
-                        lat: faker.address.latitude(),
-                        lon: faker.address.longitude()
-                    },
-                    description: faker.lorem.sentence(),
+                    afternoon: [{
+                        place: faker.commerce.product(),
+                        address: faker.address.streetName(),
+                        duration: duration[randomInt(0, duration.length - 1)],
+                        position: {
+                            lat: faker.address.latitude(),
+                            lon: faker.address.longitude()
+                        },
+                        description: faker.lorem.sentence()
+                    }],
+                    dinner: {
+                        place: faker.commerce.product(),
+                        address: faker.address.streetName(),
+                        position: {
+                            lat: faker.address.latitude(),
+                            lon: faker.address.longitude()
+                        },
+                        description: faker.lorem.sentence(),
+                    }
                 }
-            }
-        })
+            })
+    }
+    function fakeMode() {
+        return 
+    }
+
 
     const fakeTravel = Array(20)
         .fill()
         .map(() => {
             return {
-                type: [{
-                    relax: score[randomInt(0, score.length - 1)]
-                }, {
-                    cultural: score[randomInt(0, score.length - 1)]
-                }, {
+                mode: {
+                    relax: score[randomInt(0, score.length - 1)],
+                    cultural: score[randomInt(0, score.length - 1)],
                     party: score[randomInt(0, score.length - 1)]
-                }],
+                },
                 budget: dolar[randomInt(0, dolar.length - 1)],
                 name: faker.lorem.words(),
                 city: idCity[randomInt(0, idCity.length - 1)],
                 user: idUser[randomInt(0, idUser.length - 1)],
-                days: fakeDays
+                days: fakeDays()
             }
         })
     Travel.deleteMany()

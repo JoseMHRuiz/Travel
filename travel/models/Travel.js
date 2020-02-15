@@ -2,25 +2,23 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const travelSchema = new Schema({
-    type: [{
+    mode: {
         relax: {
             type: Number,
             enum: [1, 2, 3, 4, 5],
             require: true
-        }
-    }, {
+        },
         cultural: {
             type: Number,
             enum: [1, 2, 3, 4, 5],
             require: true
-        }
-    }, {
+        },
         party: {
             type: Number,
             enum: [1, 2, 3, 4, 5],
             require: true
         }
-    }],
+    },
     budget: {
         type: String,
         enum: ['💵', '💵💵', '💵💵💵'],
