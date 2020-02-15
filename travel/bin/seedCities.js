@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const faker = require("faker");
 const randomInt = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
+
 // db connection
 function dbConnect(cb) {
     mongoose

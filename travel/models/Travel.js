@@ -20,7 +20,7 @@ const travelSchema = new Schema({
             enum: [1, 2, 3, 4, 5],
             require: true
         }
-        }],
+    }],
     budget: {
         type: String,
         enum: ['💵', '💵💵', '💵💵💵'],
@@ -41,9 +41,59 @@ const travelSchema = new Schema({
         require: true
     },
     days: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Day',
-        require: true
+        breakfast: {
+            place: String,
+            address: String,
+            position: {
+                lat: Number,
+                lon: Number
+            },
+            description: String,
+        },
+        morning: [{
+            place: String,
+            address: String,
+            duration: {
+                type: String,
+                enum: ['30min-1hour', '1-2 hours', '2-3 hours', '3 or more hours']
+            },
+            position: {
+                lat: Number,
+                lon: Number
+            },
+            description: String
+        }],
+        lunch: {
+            place: String,
+            address: String,
+            position: {
+                lat: Number,
+                lon: Number
+            },
+            description: String
+        },
+        afternoon: [{
+            place: String,
+            address: String,
+            duration: {
+                type: String,
+                enum: ['30min-1hour', '1-2 hours', '2-3 hours', '3 or more hours']
+            },
+            position: {
+                lat: Number,
+                lon: Number
+            },
+            description: String
+        }],
+        dinner: {
+            place: String,
+            address: String,
+            position: {
+                lat: Number,
+                lon: Number
+            },
+            description: String
+        }
     }]
 }, {
     timestamps: {
@@ -52,5 +102,5 @@ const travelSchema = new Schema({
     }
 });
 
-const Travel = mongoose.model('User', travelSchema);
+const Travel = mongoose.model('Travel', travelSchema);
 module.exports = Travel;

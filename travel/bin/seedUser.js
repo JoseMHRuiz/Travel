@@ -27,13 +27,14 @@ mongoose
 let users = [{
     username: "Arturo",
     password: bcrypt.hashSync("123", bcrypt.genSaltSync(bcryptSalt)),
-    email: 'arturo@gmail.com'
+    email: 'arturo@gmail.com',
+    cityOrigin: faker.address.city()
   },
   {
     username: "Jose",
     password: bcrypt.hashSync("123", bcrypt.genSaltSync(bcryptSalt)),
-    email: 'jose@gmail.com'
-
+    email: 'jose@gmail.com',
+    cityOrigin: faker.address.city()
   }
 ]
 
