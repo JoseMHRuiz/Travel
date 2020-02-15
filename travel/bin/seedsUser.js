@@ -6,6 +6,10 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const User = require("../models/User");
+const faker = require("faker");
+const randomInt = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
+
+
 
 const bcryptSalt = 10;
 
