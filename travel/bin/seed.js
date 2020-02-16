@@ -154,7 +154,7 @@ dbConnect(() => {
         function shuffle(array) {
             array.sort(() => Math.random() - 0.5);
         }
-        shuffle(tags)
+        shuffle(tags);
         let start = randomInt(0, tags.length - 1);
         let modifiedArray = tags.slice(start)
         console.log(modifiedArray)

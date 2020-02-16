@@ -5,7 +5,7 @@ const City = require("../models/City");
 const Day = require("../models/Day");
 const Travel = require("../models/Travel");
 
-router.post('/cities', (req, res, next) => {
+router.post('/', (req, res, next) => {
     const {days, budget, tags} = req.body;
     const tagsArray = [...tags];
 
@@ -21,7 +21,7 @@ router.post('/cities', (req, res, next) => {
     });
 
     Travel.find({$and: [ {days: {$size: days}}, {budget: budget}, {tags: {$all: tagsWanted}}, {tags: {$nin: tagsNotWanted}} ] })
-    .then((data) => res.json(data))
+    .then(data => res.render('cities', {data}))
     .catch(err => console.log(err));
 });
 
