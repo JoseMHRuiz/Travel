@@ -6,40 +6,21 @@ const Day = require("../models/Day");
 const Travel = require("../models/Travel");
 
 router.post('/cities', (req, res, next) => {
-    const {days, budget, mode} = req.body;
+    const {days, budget, tags} = req.body;
+    const tagsArray = [...tags];
 
-    console.log(mode);
+    let tagsWanted = []; 
+    let tagsNotWanted = [];
 
-    let partyMode;
-    const value = 3;
-    mode.forEach(mode => {
-        if(mode === party) {
-            partyMode =  `{$gte: ${value}}`;
-
+    tagsArray.forEach(checkbox => {
+        if(checkbox.hasAttribute('checked')) {
+            tagsWanted.push(checkbox.value);
         } else {
-            partyMode = `{$lt: ${value}}`;
-        }
-        if(mode === relax) {
-            partyMode =  `{$gte: ${value}}`;
-
-        } else {
-            partyMode = `{$lt: ${value}}`;
-        }
-        if(mode === party) {
-            partyMode =  `{$gte: ${value}}`;
-
-        } else {
-            partyMode = `{$lt: ${value}}`;
+            tagsNotWanted.push(checkbox.value);
         }
     });
 
-
-
-    // Travel.find( {$and: [ {days: {$size: days}}, {budget: budget} ]})
-    // .then((data) => res.json(data))
-    // .catch(err => console.log(err));
-
-    Travel.find({$and: [ {days: {$size: days}}, {budget: budget}, {mode: { $elemMatch: {party: `${searchMode}`, cultural: `${searchMode}`, relax: `${searchMode}` } } } ] } )
+    Travel.find({$and: [ {days: {$size: days}}, {budget: budget}, {tags: {$all: tagsWanted}}, {tags: {$nin: tagsNotWanted}} ] })
     .then((data) => res.json(data))
     .catch(err => console.log(err));
 });

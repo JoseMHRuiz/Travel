@@ -92,7 +92,6 @@ dbConnect(() => {
     
     const dolar = ['💵', '💵💵', '💵💵💵']
     const tags = ['cultural', 'relax', 'party']
-    const deletedTags = [0, 1, 2]
     const days = [2, 5, 7]
     const duration = ['30min-1hour', '1-2 hours', '2-3 hours', '3 or more hours']
 
@@ -152,7 +151,10 @@ dbConnect(() => {
             })
     }
     function fakeTags() {
-
+        function shuffle(array) {
+            array.sort(() => Math.random() - 0.5);
+        }
+        shuffle(tags)
         let start = randomInt(0, tags.length - 1);
         let modifiedArray = tags.slice(start)
         console.log(modifiedArray)
@@ -161,7 +163,7 @@ dbConnect(() => {
     }
 
 
-    const fakeTravel = Array(20)
+    const fakeTravel = Array(100)
         .fill()
         .map(() => {
             return {
