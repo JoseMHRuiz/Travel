@@ -23,19 +23,22 @@ function dbConnect(cb) {
 }
 
 dbConnect(() => {
-    let counter = 0
+    let counter = 0;
 
     const idCity = Array(6)
         .fill()
         .map(() => {
             return new mongoose.mongo.ObjectId()
         })
-    const idUser = Array(2)
+    
+        const idUser = Array(2)
         .fill()
         .map(() => {
             return new mongoose.mongo.ObjectId()
         })
-    let users = [{
+
+    let users = [
+        {
             _id: idUser[0],
             username: "Arturo",
             password: bcrypt.hashSync("123", bcrypt.genSaltSync(bcryptSalt)),
@@ -52,6 +55,7 @@ dbConnect(() => {
             cityOrigin: faker.address.city()
         }
     ]
+
     const fakeCity = Array(6)
         .fill()
         .map(() => {
@@ -70,6 +74,7 @@ dbConnect(() => {
                 description: faker.lorem.paragraphs()
             }
         })
+
     User.deleteMany()
         .then(() => {
             return User.create(users)
@@ -84,11 +89,13 @@ dbConnect(() => {
         .then(() => {
             console.log('succesfully added the city to te data')
         })
+    
     const dolar = ['💵', '💵💵', '💵💵💵']
-    const score = [1, 2, 3, 4, 5]
+    const tags = ['cultural', 'relax', 'party']
+    const deletedTags = [0, 1, 2]
     const days = [2, 5, 7]
     const duration = ['30min-1hour', '1-2 hours', '2-3 hours', '3 or more hours']
-    
+
     function fakeDays() {
         return Array(days[randomInt(0, days.length - 1)])
             .fill()
@@ -144,8 +151,13 @@ dbConnect(() => {
                 }
             })
     }
-    function fakeMode() {
-        return 
+    function fakeTags() {
+
+        let start = randomInt(0, tags.length - 1);
+        let modifiedArray = tags.slice(start)
+        console.log(modifiedArray)
+
+        return modifiedArray
     }
 
 
@@ -153,11 +165,7 @@ dbConnect(() => {
         .fill()
         .map(() => {
             return {
-                mode: {
-                    relax: score[randomInt(0, score.length - 1)],
-                    cultural: score[randomInt(0, score.length - 1)],
-                    party: score[randomInt(0, score.length - 1)]
-                },
+                tags: fakeTags(),
                 budget: dolar[randomInt(0, dolar.length - 1)],
                 name: faker.lorem.words(),
                 city: idCity[randomInt(0, idCity.length - 1)],

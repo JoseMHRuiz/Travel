@@ -2,41 +2,29 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const travelSchema = new Schema({
-    mode: {
-        relax: {
-            type: Number,
-            enum: [1, 2, 3, 4, 5],
-            require: true
-        },
-        cultural: {
-            type: Number,
-            enum: [1, 2, 3, 4, 5],
-            require: true
-        },
-        party: {
-            type: Number,
-            enum: [1, 2, 3, 4, 5],
-            require: true
-        }
+    tags: {
+        type: [String], 
+        enum: ['cultural', 'relax', 'party'],
+        required: true
     },
     budget: {
         type: String,
         enum: ['💵', '💵💵', '💵💵💵'],
-        require: true
+        required: true
     },
     name: {
         type: String,
-        require: true
+        required: true
     },
     city: {
         type: Schema.Types.ObjectId,
         ref: 'City',
-        require: true
+        required: true
     },
     user: {
         type: Schema.Types.ObjectId,
         ref: 'User',
-        require: true
+        required: true
     },
     days: [{
         breakfast: {
